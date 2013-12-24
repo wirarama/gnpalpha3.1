@@ -54,7 +54,9 @@ public class mainprocess {
         filelog.patternlog(rulesetcoverage,"7.affectedrulecoverage.log",testdate,"affected");
         plot.datarangeset(rangelogset,testdate);
         plot.makeplot1(plot.plotstep(rulesetcoverage),"coverage","affectedcoverage","rule index","coverage",testdate);
-        plot.makeplot1(arraysearch.listtoarray(iterationcoverage),"coverage","coverage","rule amount","coverage",testdate);
+        int[][] iteration = arraysearch.listtoarray(iterationcoverage);
+        filelog.arraycsv(iteration,"5.iteration.csv",testdate);
+        plot.makeplot1(iteration,"coverage","coverage","rule amount","coverage",testdate);
         String[] summary = {
             "iteration = "+iterationcoverage.size(),
             "rule amount = "+ruleset.length,
@@ -65,6 +67,6 @@ public class mainprocess {
         }
         Runtime.getRuntime().exec("caja /home/wirarama/NetBeansProjects/gnpalpha3/log/"+testdate+"");
         knapsack.gnpknapsack(ruleset.length,testdate);
-        System.exit(1);
+        //System.exit(1);
     }
 }

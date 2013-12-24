@@ -13,6 +13,7 @@ import static gnpalpha3.mainprocess.totalrule;
 import static gnpalpha3.mainprocess.ruleset;
 import static gnpalpha3.mainprocess.rulesetcoverage;
 import static gnpalpha3.mainprocess.iterationcoverage;
+import static gnpalpha3.mainprocess.iterationindex;
 /**
  *
  * @author test
@@ -37,6 +38,7 @@ public class rule {
         addedindexrule = 0;
         addedrule = new int[data.length];
         addedindexrule = 0;
+        iterationindex = iterationindex+1;
         for(int i=0;i<ruleamount;i++){
             int[][] ruletemp = randomrule(attributeamount,rangeset);
             int rulecoverage = rulecoverage(ruletemp,data);
@@ -49,31 +51,9 @@ public class rule {
             iterationcoverage.add(totalcoverage);
             double percentpre = ((double)totalcoverage/(double)data.length);
             int percent = (int)(percentpre*100);
-            btn.setText("["+i+"]"+totalcoverage+"("+percent+"%)");
+            btn.setText(""+iterationindex+"["+i+"]"+totalcoverage+"("+percent+"%)");
             if(totalcoverage>=(data.length-1)) break;
         }
-        /*ruleset = arraysearch.cleanarray3(ruleset,totalrule);
-        affectedrule = arraysearch.cleanarray3(affectedrule,j);
-        affectedrulecoverage = arraysearch.cleanarray1(affectedrulecoverage,j);
-        rulecoverage = arraysearch.cleanarray1(rulecoverage,totalrule);
-        totalcoveragelog = arraysearch.cleanarray1(totalcoveragelog,totalrule);
-        int[][] rangelogset = rangelogset(rangeset,data);
-        filelog.array3csv(ruleset,"1.ruleset.csv",testdate);
-        filelog.array3csv(rangeset,"2.rangeset.csv",testdate);
-        filelog.patternlog(rulecoverage,"3.rulecoverage.log",testdate,"rule");
-        filelog.patternlog(totalcoveragelog,"4.rulecoveragesum.log",testdate,"covered");
-        filelog.arraycsv(rangelogset,"5.rangecoverage.csv",testdate);
-        filelog.array3csv(affectedrule,"6.affectedrule.csv",testdate);
-        filelog.patternlog(affectedrulecoverage,"7.affectedrulecoverage.log",testdate,"affected");
-        plot.makeplot1(plot.plotstep(totalcoveragelog),"coverage","coverage","rule amount","coverage",testdate);
-        plot.datarangeset(rangelogset,testdate);
-        plot.makeplot1(plot.plotstep(affectedrulecoverage),"coverage","affectedcoverage","rule index","coverage",testdate);
-        String[] summary = {
-            "iteration = "+totalcoveragelog.length,
-            "rule amount = "+affectedrule.length,
-            "average coverage = "+arraysearch.avgarray(affectedrulecoverage)};
-        filelog.stringlog(summary,"summary",testdate);
-        return affectedrule;*/
     }
     public static int[][] randomrule(int attributeamount,int[][][] range){
         int[][] rule = new int[attributeamount][3];
