@@ -25,6 +25,10 @@ public class mainprocess {
     static int[][][] ruleset;
     static int[] rulesetcoverage;
     static List iterationcoverage = new ArrayList();
+    static int[] added;
+    static int addedindex;
+    static int[] addedrule;
+    static int addedindexrule;
     public static void mainprocess(
             int attributeamount,
             int dataamount,
@@ -40,6 +44,9 @@ public class mainprocess {
         (new File("log/"+testdate+"")).mkdirs();
         int[][] data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
         double[][] stat = statistics.getstatistics(data,testdate);
+        addedindex = 0;
+        addedindexrule = 0;
+        addedrule = new int[data.length];
         int ruleamount = 10000;
         ruleset = new int[data.length][attributeamount][3];
         rulesetcoverage = new int[data.length];
@@ -47,7 +54,7 @@ public class mainprocess {
         int[][] rangelogset = rule.rangelogset(rangeset,data);
         do{
             rule.ruleset(ruleamount,attributeamount,stat,data,rangeset,testdate);
-        }while(totalcoverage<data.length);
+        }while(totalcoverage<(data.length-1));
         ruleset = arraysearch.cleanarray3(ruleset,totalrule);
         rulesetcoverage = arraysearch.cleanarray1(rulesetcoverage,totalrule);
         filelog.array3csv(ruleset,"6.affectedrule.csv",testdate);

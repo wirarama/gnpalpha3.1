@@ -14,15 +14,17 @@ import static gnpalpha3.mainprocess.ruleset;
 import static gnpalpha3.mainprocess.rulesetcoverage;
 import static gnpalpha3.mainprocess.iterationcoverage;
 import static gnpalpha3.mainprocess.iterationindex;
+import static gnpalpha3.mainprocess.added;
+import static gnpalpha3.mainprocess.addedindex;
+import static gnpalpha3.mainprocess.addedrule;
+import static gnpalpha3.mainprocess.addedindexrule;
 /**
  *
  * @author test
  */
 public class rule {
-    static int[] added;
-    static int addedindex;
-    static int[] addedrule;
-    static int addedindexrule;
+    
+    
     static int[][][] affectedrule;
     static int[] affectedrulecoverage;
     
@@ -34,10 +36,6 @@ public class rule {
             int[][][] rangeset,
             String testdate
     ) throws IOException{
-        addedindex = 0;
-        addedindexrule = 0;
-        addedrule = new int[data.length];
-        addedindexrule = 0;
         iterationindex = iterationindex+1;
         for(int i=0;i<ruleamount;i++){
             int[][] ruletemp = randomrule(attributeamount,rangeset);
