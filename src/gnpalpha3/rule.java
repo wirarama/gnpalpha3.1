@@ -18,28 +18,23 @@ import static gnpalpha3.mainprocess.added;
 import static gnpalpha3.mainprocess.addedindex;
 import static gnpalpha3.mainprocess.addedrule;
 import static gnpalpha3.mainprocess.addedindexrule;
+import static gnpalpha3.mainprocess.data;
 /**
  *
  * @author test
  */
 public class rule {
-    
-    
-    static int[][][] affectedrule;
-    static int[] affectedrulecoverage;
-    
     public static void ruleset(
             int ruleamount,
             int attributeamount,
             double[][] stat,
-            int[][] data,
             int[][][] rangeset,
             String testdate
     ) throws IOException{
         iterationindex = iterationindex+1;
         for(int i=0;i<ruleamount;i++){
             int[][] ruletemp = randomrule(attributeamount,rangeset);
-            int rulecoverage = rulecoverage(ruletemp,data);
+            int rulecoverage = rulecoverage(ruletemp);
             if(rulecoverage!=0){
                 ruleset[totalrule] = ruletemp;
                 rulesetcoverage[totalrule] = rulecoverage;
@@ -63,14 +58,14 @@ public class rule {
         }
         return rule;
     }
-    public static int[][][] rangeset(int attributeamount,double[][] stat,int[][] data){
+    public static int[][][] rangeset(int attributeamount,double[][] stat){
         int[][][] range = new int[attributeamount][4][2];
         for(int i=0;i<attributeamount;i++){
-            range[i] = rangegeneratorsub(stat[i][0],stat[i][1],data,i);
+            range[i] = rangegeneratorsub(stat[i][0],stat[i][1],i);
         }
         return range;
     }
-    public static int[][] rangegeneratorsub(double max,double min,int[][] data,int index){
+    public static int[][] rangegeneratorsub(double max,double min,int index){
         int[][] subrange = new int[4][2];
         double deviation = (max-min)/4;
         int j = 0;
@@ -81,18 +76,18 @@ public class rule {
         }
         return subrange;
     }
-    public static int[][] rangelogset(int[][][] rangeset,int[][] data){
+    public static int[][] rangelogset(int[][][] rangeset){
         int[][] rangelogset = new int[rangeset.length][4];
         for(int i=0;i<rangeset.length;i++){
             added = new int[data.length];
             addedindex = 0;
             for(int j=0;j<4;j++){
-                rangelogset[i][j] = rangelog(rangeset[i][j][0],rangeset[i][j][1],data,i);
+                rangelogset[i][j] = rangelog(rangeset[i][j][0],rangeset[i][j][1],i);
             }
         }
         return rangelogset;
     }
-    public static int rangelog(int min,int max,int[][] data,int index){
+    public static int rangelog(int min,int max,int index){
         int count = 0;
         for (int i=0;i<data.length;i++) {
             if (data[i][index] >= min && data[i][index] <= max) {
@@ -105,7 +100,7 @@ public class rule {
         }
         return count;
     }
-    public static int rulecoverage(int[][] rule,int[][] data){
+    public static int rulecoverage(int[][] rule){
         int count=0;
         for (int i=0;i<data.length;i++) {
             int support=0;

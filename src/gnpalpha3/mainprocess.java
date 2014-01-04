@@ -29,6 +29,7 @@ public class mainprocess {
     static int addedindex;
     static int[] addedrule;
     static int addedindexrule;
+    static int[][] data;
     public static void mainprocess(
             int attributeamount,
             int dataamount,
@@ -42,7 +43,7 @@ public class mainprocess {
         Date date = new Date();
         String testdate = dateFormat.format(date);
         (new File("log/"+testdate+"")).mkdirs();
-        int[][] data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
+        data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
         double[][] stat = statistics.getstatistics(data,testdate);
         addedindex = 0;
         addedindexrule = 0;
@@ -50,10 +51,10 @@ public class mainprocess {
         int ruleamount = 10000;
         ruleset = new int[data.length][attributeamount][3];
         rulesetcoverage = new int[data.length];
-        int[][][] rangeset = rule.rangeset(attributeamount,stat,data);
-        int[][] rangelogset = rule.rangelogset(rangeset,data);
+        int[][][] rangeset = rule.rangeset(attributeamount,stat);
+        int[][] rangelogset = rule.rangelogset(rangeset);
         do{
-            rule.ruleset(ruleamount,attributeamount,stat,data,rangeset,testdate);
+            rule.ruleset(ruleamount,attributeamount,stat,rangeset,testdate);
         }while(totalcoverage<(data.length-1));
         ruleset = arraysearch.cleanarray3(ruleset,totalrule);
         rulesetcoverage = arraysearch.cleanarray1(rulesetcoverage,totalrule);
@@ -74,6 +75,6 @@ public class mainprocess {
         }
         Runtime.getRuntime().exec("caja /home/wirarama/NetBeansProjects/gnpalpha3/log/"+testdate+"");
         knapsack.gnpknapsack(ruleset.length,testdate);
-        //System.exit(1);
+        System.exit(1);
     }
 }
