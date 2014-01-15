@@ -18,9 +18,12 @@ public class filelog {
     public static void arraycsv(int[][] data,String filename,String testdate) throws IOException{
         try (BufferedWriter out = new BufferedWriter(new FileWriter("log/"+testdate+"/"+filename))) {
             for (int[] data1 : data) {
+                String buff="";
                 for (int j = 0; j<data[0].length; j++) {
-                    out.write(data1[j] + ",");
+                    buff = buff+data1[j] + ",";
                 }
+                buff = buff.substring(0,buff.length()-1);
+                out.write(buff);
                 out.newLine();
             }
             out.close();
@@ -29,9 +32,12 @@ public class filelog {
     public static void arraycsvdouble(double[][] data,String filename,String testdate) throws IOException{
         try (BufferedWriter out = new BufferedWriter(new FileWriter("log/"+testdate+"/"+filename))) {
             for (double[] data1 : data) {
+                String buff="";
                 for (int j = 0; j<data[0].length; j++) {
-                    out.write(data1[j] + ",");
+                    buff = buff+data1[j] + ",";
                 }
+                buff = buff.substring(0,buff.length()-1);
+                out.write(buff);
                 out.newLine();
             }
             out.close();
@@ -58,12 +64,15 @@ public class filelog {
     public static void array3csv(int[][][] data,String filename,String testdate) throws IOException{
         try (BufferedWriter out = new BufferedWriter(new FileWriter("log/"+testdate+"/"+filename))) {
             for (int[][] data1 : data) {
+                String buff = "";
                 for (int[] data11 : data1) {
                     for (int k = 0; k<data11.length; k++) {
-                        out.write(data11[k] + "-");
+                        buff = buff+data11[k] + "-";
                     }
-                    out.write(",");
+                    buff = buff+",";
                 }
+                buff = buff.substring(0,buff.length()-1);
+                out.write(buff);
                 out.newLine();
             }
             out.close();
