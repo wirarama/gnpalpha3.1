@@ -45,6 +45,9 @@ public class mainprocess {
         (new File("log/"+testdate+"")).mkdirs();
         data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
         double[][] stat = statistics.getstatistics(data,testdate);
+        int[][] centroid = silhoutte.centroid(stat,6);
+        silhoutte.centroidkmeans(centroid,testdate);
+        silhoutte.centroidgnp(centroid,testdate);
         addedindex = 0;
         addedindexrule = 0;
         addedrule = new int[data.length];
