@@ -56,9 +56,14 @@ public class mainprocess {
         rulesetcoverage = new int[data.length];
         int[][][] rangeset = rule.rangeset(attributeamount,stat);
         int[][] rangelogset = rule.rangelogset(rangeset);
+        //start auto fill
+        int maxdata = data.length-1;
+        maxdata = maxdata-50;
+        //end auto fill
+        rulesetcoverage[totalrule+1] = data.length;
         do{
             rule.ruleset(ruleamount,attributeamount,stat,rangeset,testdate);
-        }while(totalcoverage<(data.length-1));
+        }while(totalcoverage<(maxdata));
         ruleset = arraysearch.cleanarray3(ruleset,totalrule);
         rulesetcoverage = arraysearch.cleanarray1(rulesetcoverage,totalrule);
         filelog.array3csv(ruleset,"6.affectedrule.csv",testdate);
@@ -73,10 +78,11 @@ public class mainprocess {
             "rule amount = "+ruleset.length,
             "average coverage = "+arraysearch.avgarray(rulesetcoverage)};
         filelog.stringlog(summary,"summary",testdate);
+        silhoutteresult.silhoutteresult(testdate);
         if(isplot==true){
             plot.datasplitbatch(data,2,testdate);
         }
-        Runtime.getRuntime().exec("caja /home/wirarama/NetBeansProjects/gnpalpha3/log/"+testdate+"");
+        Runtime.getRuntime().exec("nemo /home/wirarama/NetBeansProjects/gnpalpha3.1/log/"+testdate+"");
         knapsack.gnpknapsack(ruleset.length,testdate);
         System.exit(1);
     }
