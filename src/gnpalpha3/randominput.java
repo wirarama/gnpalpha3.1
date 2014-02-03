@@ -31,9 +31,9 @@ public class randominput {
             data[i] = pattern[randomrange(0,(datavariation1-1))];
         }
         int[] patternresult = patternseeker(pattern,data,pattern[0].length);
-        filelog.arraycsv(range,"0.1.range.csv",testdate);
-        filelog.arraycsv(pattern,"0.2.pattern.csv",testdate);
-        filelog.arraycsv(data,"0.3.data.csv",testdate);
+        filelog.arraycsv(range,"0.1.range.csv",testdate,"\"min\",\"max\"");
+        filelog.arraycsv(pattern,"0.2.pattern.csv",testdate,filelog.attributelabel(pattern[0].length));
+        filelog.arraycsv(data,"0.3.data.csv",testdate,filelog.attributelabel(data[0].length));
         filelog.patternlog(patternresult,"0.4.patternresult.log",testdate,"pattern");
         return data;
     }

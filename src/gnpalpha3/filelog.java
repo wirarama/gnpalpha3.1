@@ -13,8 +13,18 @@ import java.io.IOException;
  * @author test
  */
 public class filelog {
-    public static void arraycsv(int[][] data,String filename,String testdate) throws IOException{
+    public static String attributelabel(int attribute){
+        String out="";
+        for(int i=0;i<attribute;i++){
+            out+="\"attr "+i+"\",";
+        }
+        out = out.substring(0,out.length()-1);
+        return out;
+    }
+    public static void arraycsv(int[][] data,String filename,String testdate,String label) throws IOException{
         try (BufferedWriter out = new BufferedWriter(new FileWriter("log/"+testdate+"/"+filename))) {
+            out.write(label);
+            out.newLine();
             for (int[] data1 : data) {
                 String buff="";
                 for (int j = 0; j<data[0].length; j++) {

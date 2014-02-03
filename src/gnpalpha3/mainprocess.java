@@ -71,7 +71,7 @@ public class mainprocess {
         plot.datarangeset(rangelogset,testdate);
         plot.makeplot1(plot.plotstep(rulesetcoverage),"coverage","affectedcoverage","rule index","coverage",testdate);
         int[][] iteration = arraysearch.listtoarray(iterationcoverage);
-        filelog.arraycsv(iteration,"5.iteration.csv",testdate);
+        filelog.arraycsv(iteration,"5.iteration.csv",testdate,"\"index\",\"coverage\"");
         plot.makeplot1(iteration,"coverage","coverage","rule amount","coverage",testdate);
         String[] summary = {
             "iteration = "+iterationcoverage.size(),
