@@ -49,11 +49,11 @@ public class silhoutte {
             for(int i=0;i<centroid[0].length;i++){
                 attr[i] = i;
             }
-            for (int i=0;i<centroid.length;i++) {
+            for (int[] centroid1 : centroid) {
                 arraysearch.shufflearray(attr);
                 String buff="";
-                for(int j=0;j<centroid[0].length;j++){
-                    int cent1 = centroid[i][attr[j]];
+                for (int j = 0; j<centroid[0].length; j++) {
+                    int cent1 = centroid1[attr[j]];
                     int randvalue = cent1/8;
                     buff = buff+"["+attr[j]+"]"+randominput.randomrange((cent1-randvalue),(cent1+randvalue))+",";
                 }

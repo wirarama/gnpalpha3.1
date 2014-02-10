@@ -60,4 +60,7 @@ public class silhoutteresult {
         double randomvalue = min + (double)(Math.random() * ((max - min) + 1));
         return randomvalue;
     }
+    public static void kmeancentroid(){
+        
+    }
 }
