@@ -9,6 +9,7 @@ import com.panayotis.gnuplot.plot.AbstractPlot;
 import com.panayotis.gnuplot.style.PlotStyle;
 import com.panayotis.gnuplot.style.Style;
 import com.panayotis.gnuplot.terminal.ImageTerminal;
+import com.panayotis.gnuplot.terminal.PostscriptTerminal;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
  * @author test
  */
 public class plot {
+    static boolean fileexport=false;
     public static void makeplot(ArrayList<int[][]> data,String[] label,String pngname,String xlabel,String ylabel,String testdate){
         JavaPlot p = new JavaPlot();
         p.setTitle(pngname);
@@ -28,7 +30,6 @@ public class plot {
         p.getAxis("x").setLabel(xlabel);
         p.getAxis("y").setLabel(ylabel);
         int k=0;
-        boolean fileexport=true;
         for(int i=0;i<data.size();i++){
             int[][] data1 = data.get(i);
             p.addPlot(data1);
@@ -39,24 +40,29 @@ public class plot {
             }else{
                 stl.setStyle(Style.LINES);
             }
-            ImageTerminal png = new ImageTerminal();
-            File file = new File("log/"+testdate+"/"+pngname+testdate+".png");
-            try {
-                file.createNewFile();
-                png.processOutput(new FileInputStream(file));
-            } catch (FileNotFoundException ex) {
-                System.err.print(ex);
-            } catch (IOException ex) {
-                System.err.print(ex);
-            }
-            if(fileexport==true){ p.setTerminal(png); }
-            p.plot();
             if(fileexport==true){
+                ImageTerminal png = new ImageTerminal();
+                File file = new File("log/"+testdate+"/"+pngname+testdate+".png");
+                try {
+                    file.createNewFile();
+                    png.processOutput(new FileInputStream(file));
+                } catch (FileNotFoundException ex) {
+                    System.err.print(ex);
+                } catch (IOException ex) {
+                    System.err.print(ex);
+                }
+                p.setTerminal(png);
+                p.plot();
                 try {
                     ImageIO.write(png.getImage(), "png", file);
                 } catch (IOException ex) {
                     System.err.print(ex);
                 }
+            }else{
+                PostscriptTerminal epsf = new PostscriptTerminal("log/"+testdate+"/"+pngname+testdate+".eps");
+                epsf.setColor(true);
+                p.setTerminal(epsf);
+                p.plot();
             }
             k++;
         }
@@ -71,42 +77,7 @@ public class plot {
         ((AbstractPlot) p.getPlots().get(0)).setTitle(label);
         PlotStyle stl = ((AbstractPlot) p.getPlots().get(0)).getPlotStyle();
         stl.setStyle(Style.LINES);
-        ImageTerminal png = new ImageTerminal();
-        File file = new File("log/"+testdate+"/"+pngname+testdate+".png");
-        try {
-            file.createNewFile();
-            png.processOutput(new FileInputStream(file));
-        } catch (FileNotFoundException ex) {
-            System.err.print(ex);
-        } catch (IOException ex) {
-            System.err.print(ex);
-        }
-        p.setTerminal(png);
-        p.plot();
-        try {
-            ImageIO.write(png.getImage(), "png", file);
-        } catch (IOException ex) {
-            System.err.print(ex);
-        }
-    }
-    public static void makeplot2(ArrayList<double[][]> data,String[] label,String pngname,String xlabel,String ylabel,String testdate){
-        JavaPlot p = new JavaPlot();
-        p.setTitle(pngname);
-        p.setKey(JavaPlot.Key.BELOW);
-        p.getAxis("x").setLabel(xlabel);
-        p.getAxis("y").setLabel(ylabel);
-        int k=0;
-        boolean fileexport=true;
-        for(int i=0;i<data.size();i++){
-            double[][] data1 = data.get(i);
-            p.addPlot(data1);
-            ((AbstractPlot) p.getPlots().get(k)).setTitle(label[k]);
-            PlotStyle stl = ((AbstractPlot) p.getPlots().get(k)).getPlotStyle();
-            if("rangecoverage".equals(pngname)){
-                stl.setStyle(Style.BOXERRORBARS);
-            }else{
-                stl.setStyle(Style.LINES);
-            }
+        if(fileexport==true){
             ImageTerminal png = new ImageTerminal();
             File file = new File("log/"+testdate+"/"+pngname+testdate+".png");
             try {
@@ -117,14 +88,60 @@ public class plot {
             } catch (IOException ex) {
                 System.err.print(ex);
             }
-            if(fileexport==true){ p.setTerminal(png); }
+            p.setTerminal(png);
             p.plot();
+            try {
+                ImageIO.write(png.getImage(), "png", file);
+            } catch (IOException ex) {
+                System.err.print(ex);
+            }
+        }else{
+            PostscriptTerminal epsf = new PostscriptTerminal("log/"+testdate+"/"+pngname+testdate+".eps");
+            epsf.setColor(true);
+            p.setTerminal(epsf);
+            p.plot();
+        }
+    }
+    public static void makeplot2(ArrayList<double[][]> data,String[] label,String pngname,String xlabel,String ylabel,String testdate){
+        JavaPlot p = new JavaPlot();
+        p.setTitle(pngname);
+        p.setKey(JavaPlot.Key.BELOW);
+        p.getAxis("x").setLabel(xlabel);
+        p.getAxis("y").setLabel(ylabel);
+        int k=0;
+        for(int i=0;i<data.size();i++){
+            double[][] data1 = data.get(i);
+            p.addPlot(data1);
+            ((AbstractPlot) p.getPlots().get(k)).setTitle(label[k]);
+            PlotStyle stl = ((AbstractPlot) p.getPlots().get(k)).getPlotStyle();
+            if("rangecoverage".equals(pngname)){
+                stl.setStyle(Style.BOXERRORBARS);
+            }else{
+                stl.setStyle(Style.LINES);
+            }
             if(fileexport==true){
+                ImageTerminal png = new ImageTerminal();
+                File file = new File("log/"+testdate+"/"+pngname+testdate+".png");
+                try {
+                    file.createNewFile();
+                    png.processOutput(new FileInputStream(file));
+                } catch (FileNotFoundException ex) {
+                    System.err.print(ex);
+                } catch (IOException ex) {
+                    System.err.print(ex);
+                }
+                p.setTerminal(png);
+                p.plot();
                 try {
                     ImageIO.write(png.getImage(), "png", file);
                 } catch (IOException ex) {
                     System.err.print(ex);
                 }
+            }else{
+                PostscriptTerminal epsf = new PostscriptTerminal("log/"+testdate+"/"+pngname+testdate+".eps");
+                epsf.setColor(true);
+                p.setTerminal(epsf);
+                p.plot();
             }
             k++;
         }

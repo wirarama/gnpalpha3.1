@@ -58,7 +58,7 @@ public class mainprocess {
         int[][] rangelogset = rule.rangelogset(rangeset);
         //start auto fill
         int maxdata = data.length-1;
-        maxdata = maxdata-50;
+        //maxdata = maxdata-50;
         //end auto fill
         rulesetcoverage[totalrule+1] = data.length;
         do{
