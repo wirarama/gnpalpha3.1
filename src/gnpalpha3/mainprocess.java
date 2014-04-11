@@ -39,6 +39,19 @@ public class mainprocess {
             int variation,
             boolean isplot
     ) throws IOException{
+        gnpdebug.coverage(5,100,100);
+        gnpdebug.partialrandom(4,100);
+        System.out.println("1.1="+randominput.randomrange(5,28));
+        System.out.println("1.2="+randominput.randomrange(5,28));
+        System.out.println("2.1="+randominput.randomrange(5,28));
+        System.out.println("2.2="+randominput.randomrange(5,24));
+        System.out.println("2.3="+randominput.randomrange(5,30));
+        System.out.println("3.1="+randominput.randomrange(5,24));
+        System.out.println("3.2="+randominput.randomrange(5,24));
+        System.out.println("4.1="+randominput.randomrange(5,28));
+        System.out.println("4.2="+randominput.randomrange(5,30));
+        System.out.println("4.2="+randominput.randomrange(5,24));
+        System.exit(1);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         Date date = new Date();
         String testdate = dateFormat.format(date);
@@ -82,6 +95,7 @@ public class mainprocess {
         if(isplot==true){
             plot.datasplitbatch(data,2,testdate);
         }
+        
         Runtime.getRuntime().exec("nemo /home/wirarama/NetBeansProjects/gnpalpha3.1/log/"+testdate+"");
         knapsack.gnpknapsack(ruleset.length,testdate);
         System.exit(1);
