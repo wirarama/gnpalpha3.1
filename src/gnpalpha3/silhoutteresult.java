@@ -63,4 +63,30 @@ public class silhoutteresult {
     public static void kmeancentroid(){
         
     }
+    public static void gnpattribute(){
+        int min = 100;
+        int max = 500;
+        int div = (max-min)/5;
+        int dataamt = 1000;
+        int last = min;
+        int left = dataamt;
+        for(int i=0;i<3;i++){
+            int from = last+randominput.randomrange(1,div);
+            int to;
+            if(i!=2){
+                to = from+randominput.randomrange(1,div);
+            }else{
+                to = max;
+            }
+            last = to;
+            int coverage;
+            if(i!=2){
+                coverage = randominput.randomrange(1,left);
+                left = left-coverage;
+            }else{
+                coverage = left;
+            }
+            System.out.println(i+" "+from+" "+to+" "+coverage);
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class mainprocess {
             int variation,
             boolean isplot
     ) throws IOException{
-        gnpdebug.coverage(5,100,100);
+        /*gnpdebug.coverage(5,100,100);
         gnpdebug.partialrandom(4,100);
         System.out.println("1.1="+randominput.randomrange(5,28));
         System.out.println("1.2="+randominput.randomrange(5,28));
@@ -50,7 +50,8 @@ public class mainprocess {
         System.out.println("3.2="+randominput.randomrange(5,24));
         System.out.println("4.1="+randominput.randomrange(5,28));
         System.out.println("4.2="+randominput.randomrange(5,30));
-        System.out.println("4.2="+randominput.randomrange(5,24));
+        System.out.println("4.2="+randominput.randomrange(5,24));*/
+        silhoutteresult.gnpattribute();
         System.exit(1);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         Date date = new Date();
