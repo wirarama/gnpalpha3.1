@@ -39,6 +39,10 @@ public class mainprocess {
             int variation,
             boolean isplot
     ) throws IOException{
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        Date date = new Date();
+        String testdate = dateFormat.format(date);
+        (new File("log/"+testdate+"")).mkdirs();
         /*gnpdebug.coverage(5,100,100);
         gnpdebug.partialrandom(4,100);
         System.out.println("1.1="+randominput.randomrange(5,28));
@@ -51,13 +55,11 @@ public class mainprocess {
         System.out.println("4.1="+randominput.randomrange(5,28));
         System.out.println("4.2="+randominput.randomrange(5,30));
         System.out.println("4.2="+randominput.randomrange(5,24));*/
-        silhoutteresult.gnpattribute();
-        System.exit(1);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        Date date = new Date();
-        String testdate = dateFormat.format(date);
-        (new File("log/"+testdate+"")).mkdirs();
-        data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
+        //silhoutteresult.gnpattribute(testdate);
+        //silhoutteresult.distribution();
+        silhoutteresult.attributearrange();
+        
+        /*data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
         double[][] stat = statistics.getstatistics(data,testdate);
         int[][] centroid = silhoutte.centroid(stat,6);
         silhoutte.centroidkmeans(centroid,testdate);
@@ -95,10 +97,10 @@ public class mainprocess {
         silhoutteresult.silhoutteresult(testdate);
         if(isplot==true){
             plot.datasplitbatch(data,2,testdate);
-        }
+        }*/
         
-        Runtime.getRuntime().exec("nemo /home/wirarama/NetBeansProjects/gnpalpha3.1/log/"+testdate+"");
-        knapsack.gnpknapsack(ruleset.length,testdate);
+        //Runtime.getRuntime().exec("nemo /home/wirarama/NetBeansProjects/gnpalpha3.1/log/"+testdate+"");
+        //knapsack.gnpknapsack(ruleset.length,testdate);
         System.exit(1);
     }
 }

@@ -64,4 +64,19 @@ public class silhoutte {
             out.close();
         }
     }
+    public static void centroidgnp2(int[][] centroid,String testdate) throws IOException{
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("log/"+testdate+"/centroidkmean.csv"))) {
+            for (int[] data1 : centroid) {
+                String buff="";
+                for (int j = 0; j<centroid[0].length; j++) {
+                    int randvalue = data1[j]/8;
+                    buff = buff+randominput.randomrange((data1[j]-randvalue),(data1[j]+randvalue))+",";
+                }
+                buff = buff.substring(0,buff.length()-1);
+                out.write(buff);
+                out.newLine();
+            }
+            out.close();
+        }
+    }
 }
