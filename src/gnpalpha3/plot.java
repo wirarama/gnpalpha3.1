@@ -155,18 +155,24 @@ public class plot {
         }
         makeplot(dataplot,label,"rangecoverage","range index","value",testdate);
     }
-    public static void silhoutte(double[][] data,String testdate){
+    public static void silhoutte(double[][] data,String testdate,String add,int subject){
+        int[] nuattribute = {2,4,8,16,24,32};
+        int[] nudataamount = {100,1000,3000,10000,20000,50000};
         ArrayList<double[][]> dataplot = new ArrayList<>();
         String[] label = {"kmean","hierarchical","gnp"};
         for (double[] data2 : data) {
             double[][] data1 = new double[data[0].length][2];
             for (int j = 0; j<data[0].length; j++) {
-                data1[j][0] = j+1;
+                if(subject==1){
+                    data1[j][0] = nuattribute[j];
+                }else{
+                    data1[j][0] = nudataamount[j];
+                }
                 data1[j][1] = data2[j];
             }
             dataplot.add(data1);
         }
-        makeplot2(dataplot,label,"silhoutte","case","value",testdate);
+        makeplot2(dataplot,label,add,"case","value",testdate);
     }
     public static int[][] plotstep(int[] data){
         int[][] out = new int[data.length][2];

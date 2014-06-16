@@ -55,9 +55,10 @@ public class mainprocess {
         System.out.println("4.1="+randominput.randomrange(5,28));
         System.out.println("4.2="+randominput.randomrange(5,30));
         System.out.println("4.2="+randominput.randomrange(5,24));*/
-        //silhoutteresult.gnpattribute(testdate);
-        //silhoutteresult.distribution();
-        silhoutteresult.attributearrange();
+        /*silhoutteresult.gnpattribute(testdate);
+        silhoutteresult.distribution();
+        silhoutteresult.attributearrange();*/
+        silhoutteresult.silhoutteresultnu(testdate);
         
         /*data = randominput.randomdb(attributeamount,dataamount,variation,testdate,range,cross,mutation);
         double[][] stat = statistics.getstatistics(data,testdate);
@@ -97,9 +98,9 @@ public class mainprocess {
         silhoutteresult.silhoutteresult(testdate);
         if(isplot==true){
             plot.datasplitbatch(data,2,testdate);
-        }*/
-        
-        //Runtime.getRuntime().exec("nemo /home/wirarama/NetBeansProjects/gnpalpha3.1/log/"+testdate+"");
+        }
+        */
+        Runtime.getRuntime().exec("nemo /home/wirarama/NetBeansProjects/gnpalpha3.1/log/"+testdate+"");
         //knapsack.gnpknapsack(ruleset.length,testdate);
         System.exit(1);
     }

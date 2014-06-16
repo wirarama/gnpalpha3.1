@@ -21,8 +21,36 @@ public class silhoutteresult {
     static int[] datavariation = {30,50,30,70,30,50,30,70};
     static double[] kmean = {0.98,0.962,0.884,0.792,0.476,0.401,0.345,0.293};
     static double[] hierarchical = {0.87,0.87,0.789,0.648,0.587,0.578,0.558,0.4978};
-    static double[] gnp = {0.98,0.97,0.926,0.914,0.782,0.729,0.665,0.654};
+    static double[] gnp = {0.98,0.97,0.912,0.902,0.777,0.692,0.652,0.602};
     static String[] method = {"kmean","hierarchical","gnp"};
+    
+    //-----------------------------------------------------------
+    //  nu parameter
+    //-----------------------------------------------------------
+    static int[] nuattribute = {2,4,8,16,24,32};
+    static int[] nudataamount = {100,1000,3000,10000,20000,50000};
+    //-----------------------------------------------------------
+    //  silhouette
+    //-----------------------------------------------------------
+    //attribute
+    static double[] shattrkmean = {0.98,0.78,0.47,0.42,0.32,0.12};
+    static double[] shattrhierarchical = {0.87,0.87,0.57,0.52,0.42,0.31};
+    static double[] shattrgnp = {0.98,0.97,0.69,0.54,0.42,0.33};
+    //data amount
+    static double[] shdataamountkmean = {0.42,0.43,0.42,0.40,0.41,0.43};
+    static double[] shdataamounthierarchical = {0.57,0.56,0.54,0.53,0.52,0.52};
+    static double[] shdataamountgnp = {0.70,0.71,0.72,0.71,0.69,0.68};
+    //-----------------------------------------------------------
+    //  iteration time
+    //-----------------------------------------------------------
+    //attribute
+    static double[] itattrkmean = {8,546,726,2093,3789,4678};
+    static double[] itattrhierarchical = {1092,1245,1479,1903,2039,2849};
+    static double[] itattrgnp = {235,352,416,780,1309,2409};
+    //data amount
+    static double[] itdataamountkmean = {583,839,903,1027,2693,4092};
+    static double[] itdataamounthierarchical = {876,1293,5092,22902,58023,203904};
+    static double[] itdataamountgnp = {419,428,489,500,593,643};
     public static void silhoutteresult(String testdate) throws IOException{
         double[][] resultlog = new double[method.length][kmean.length];
         for (String method1 : method) {
@@ -53,7 +81,64 @@ public class silhoutteresult {
                 }
                 out.close();
             }
-            plot.silhoutte(resultlog, testdate);
+            //plot.silhoutte(resultlog, testdate,"a");
+        }
+    }
+    public static void silhoutteresultnu(String testdate) throws IOException{
+        double[][] resultlog1 = new double[method.length][nuattribute.length];
+        double[][] resultlog2 = new double[method.length][nuattribute.length];
+        double[][] resultlog3 = new double[method.length][nuattribute.length];
+        double[][] resultlog4 = new double[method.length][nuattribute.length];
+        for (String method1 : method) {
+            try (final BufferedWriter out = new BufferedWriter(new FileWriter("log/"+testdate+"/silhoutte-" + method1 + ".csv"))) {
+                out.write("\"attributes\",\"data amount\",\"silhouette attr\",\"iteration attr\",\"silhouette data\",\"iteration data\"");
+                out.newLine();
+                double result1 = 0;
+                double result2 = 0;
+                double result3 = 0;
+                double result4 = 0;
+                for (int i = 0; i<nuattribute.length; i++) {
+                    switch (method1) {
+                        case "kmean":
+                            resultlog1[0][i] = shattrkmean[i];
+                            resultlog2[0][i] = shdataamountkmean[i];
+                            resultlog3[0][i] = itattrkmean[i];
+                            resultlog4[0][i] = itdataamountkmean[i];
+                            result1 = resultlog1[0][i];
+                            result2 = resultlog2[0][i];
+                            result3 = resultlog3[0][i];
+                            result4 = resultlog4[0][i];
+                            break;
+                        case "hierarchical":
+                            resultlog1[1][i] = shattrhierarchical[i];
+                            resultlog2[1][i] = shdataamounthierarchical[i];
+                            resultlog3[1][i] = itattrhierarchical[i];
+                            resultlog4[1][i] = itdataamounthierarchical[i];
+                            result1 = resultlog1[1][i];
+                            result2 = resultlog2[1][i];
+                            result3 = resultlog3[1][i];
+                            result4 = resultlog4[1][i];
+                            break;
+                        case "gnp":
+                            resultlog1[2][i] = shattrgnp[i];
+                            resultlog2[2][i] = shdataamountgnp[i];
+                            resultlog3[2][i] = itattrgnp[i];
+                            resultlog4[2][i] = itdataamountgnp[i];
+                            result1 = resultlog1[2][i];
+                            result2 = resultlog2[2][i];
+                            result3 = resultlog3[2][i];
+                            result4 = resultlog4[2][i];
+                            break;
+                    }
+                    out.write(nuattribute[i]+","+nudataamount[i]+","+result1+","+result2+","+result3+","+result4);
+                    out.newLine();
+                }
+                out.close();
+            }
+            plot.silhoutte(resultlog1, testdate,"silhouette by attribute",1);
+            plot.silhoutte(resultlog2, testdate,"silhouette by data",1);
+            plot.silhoutte(resultlog3, testdate,"iteration time by attribute",2);
+            plot.silhoutte(resultlog4, testdate,"iteration time by data",2);
         }
     }
     public static double randomrangedouble(double min,double max){
