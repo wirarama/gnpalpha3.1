@@ -157,9 +157,9 @@ public class plot {
     }
     public static void silhoutte(double[][] data,String testdate,String add,int subject){
         int[] nuattribute = {2,4,8,16,24,32};
-        int[] nudataamount = {100,1000,3000,10000,20000,50000};
+        int[] nudataamount = {2,4,6,8,10,12};
         ArrayList<double[][]> dataplot = new ArrayList<>();
-        String[] label = {"kmean","hierarchical","gnp"};
+        String[] label = {"gnp","hierarchical","kmean"};
         for (double[] data2 : data) {
             double[][] data1 = new double[data[0].length][2];
             for (int j = 0; j<data[0].length; j++) {
@@ -172,7 +172,25 @@ public class plot {
             }
             dataplot.add(data1);
         }
-        makeplot2(dataplot,label,add,"case","value",testdate);
+        if(subject==1){
+            makeplot2(dataplot,label,add,"attribute","silhouette value",testdate);
+        }else{
+            makeplot2(dataplot,label,add,"k","silhouette value",testdate);
+        }
+    }
+    public static void silhoutte1(double[][] data,String testdate,String add){
+        int[] nuattribute = {1,2,3,4,5,6,7,8};
+        ArrayList<double[][]> dataplot = new ArrayList<>();
+        String[] label = {"gnp","hierarchical","kmean"};
+        for (double[] data2 : data) {
+            double[][] data1 = new double[data[0].length][2];
+            for (int j = 0; j<data[0].length; j++) {
+                data1[j][0] = nuattribute[j];
+                data1[j][1] = data2[j];
+            }
+            dataplot.add(data1);
+        }
+        makeplot2(dataplot,label,add,"case","silhouette value",testdate);
     }
     public static int[][] plotstep(int[] data){
         int[][] out = new int[data.length][2];
